@@ -1,21 +1,18 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../dashboard/dashboard.component';
-import { UserProfileComponent } from '../../user-profile/user-profile.component';
-import { TableListComponent } from '../../table-list/table-list.component';
-import { TypographyComponent } from '../../typography/typography.component';
-import { IconsComponent } from '../../icons/icons.component';
-import { MapsComponent } from '../../maps/maps.component';
-import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
+import { DevicesComponent } from 'src/app/components/devices/devices.component';
+import { AlarmasComponent } from 'src/app/components/alarmas/alarmas.component';
+import { TemplatesComponent } from 'src/app/components/templates/templates.component';
+import { TestComponent } from 'src/app/components/test/test.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
-    { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'table-list',     component: TableListComponent },
-    { path: 'typography',     component: TypographyComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
-    { path: 'notifications',  component: NotificationsComponent },
+    {path: 'devices', component:DevicesComponent},
+    {path: 'alarmas', component:AlarmasComponent},
+    {path:'templates', component:TemplatesComponent},
+    {path:'test', component:TestComponent},
+    
     { path: 'upgrade',        component: UpgradeComponent }
 ];

@@ -6,6 +6,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { DevicesComponent } from './devices/devices.component';
+import { AlarmasComponent } from './alarmas/alarmas.component';
+import { TemplatesComponent } from './templates/templates.component';
+import { TestComponent } from './test/test.component';
+import { IotindicatorComponent } from './iotindicator/iotindicator.component';
 
 @NgModule({
   imports: [
@@ -16,7 +21,12 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   declarations: [
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    DevicesComponent,
+    AlarmasComponent,
+    TemplatesComponent,
+    TestComponent,
+    IotindicatorComponent
   ],
   exports: [
     FooterComponent,
