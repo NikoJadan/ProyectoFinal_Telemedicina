@@ -19,7 +19,7 @@ export class EventBusService {
   off(event:string):void{
     let subject=this.subjects[event];
     if(subject){
-      subject.Complete();
+      subject.complete();
       delete this.subjects[event];
     }
   }
@@ -28,6 +28,8 @@ export class EventBusService {
     if (subject){
       subject.next(data);
     }
+    //console.log('topic:'+event+" datos:"+data.topic+data.msg.value);
+    console.log('topic:'+event+" datos:"+data);
   }
 
 }

@@ -11,6 +11,7 @@ import { AlarmasComponent } from './alarmas/alarmas.component';
 import { TemplatesComponent } from './templates/templates.component';
 import { TestComponent } from './test/test.component';
 import { IotindicatorComponent } from './iotindicator/iotindicator.component';
+import { IotbuttonComponent } from './iotbutton/iotbutton.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { IotindicatorComponent } from './iotindicator/iotindicator.component';
     AlarmasComponent,
     TemplatesComponent,
     TestComponent,
-    IotindicatorComponent
+    IotindicatorComponent,
+    IotbuttonComponent
   ],
   exports: [
     FooterComponent,

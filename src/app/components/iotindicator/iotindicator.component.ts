@@ -51,8 +51,9 @@ export class IotindicatorComponent {
 
   ngOnDestroy(): void {
     const topic=this.config.userId+"/"+this.config.selectedDevice.dId+"/"+this.config.variable+"/sdata";
-
+  
     this.eventBusService.off(topic);
 
   }
+
 }

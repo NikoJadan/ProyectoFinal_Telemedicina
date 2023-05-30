@@ -16,6 +16,26 @@ export class TemplatesComponent {
  topic2:string="userId/8882/var2/sdata";
  topic3:string="userId/8883/var3/sdata";
  topic4:string="userId/8884/var4/sdata";
+
+ configButton={
+  userId:'userId',
+  selectedDevice:{
+    name:"hogar",
+    dId:"8881",
+    template:"Sensor Potencia",
+    templateId:"asdfghjkl",
+    saverRule:false
+
+  },
+  variableFullName:"Bomba",
+  variable:"var1",
+  icon:"fa-sun",
+  column:"col-6",
+  widget:"indicator",
+  class:"success",
+  message:"{'status':'stop'}"
+}
+
  config1={
   userId:'userId',
   selectedDevice:{

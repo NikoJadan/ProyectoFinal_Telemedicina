@@ -3,8 +3,8 @@
 <div class="main-content">
     <div class="row">
         <div class="col-4">
-            <app-iotindicator [config]="config1"></app-iotindicator>
-            <button (click)="sendData1()">ENVIAR</button>
+            <app-iotindicator [config]="configButton"></app-iotindicator>
+            <button (click)="sendData1()">ENVIAR {{topic1}}</button>
         </div>
         <div class="col-4">
             <app-iotindicator [config]="config2"></app-iotindicator>
@@ -16,12 +16,10 @@
         </div>
         <div class="col-4">
             <app-iotindicator [config]="config4"></app-iotindicator>
-            
             <button (click)="sendData4()">ENVIAR</button>
         </div>
     </div>
-
-    
-
+    <div class="row">
+        <app-iotbutton [config]="configButton"></app-iotbutton> 
+    </div>
 </div>
-
