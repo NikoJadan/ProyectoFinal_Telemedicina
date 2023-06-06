@@ -1,0 +1,126 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card text-center">
+        <div class="card-header">
+          <h5 class="title">Agregar Nuevo Dispositivo</h5>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="row">
+              <div class="col-md-5 pr-1">
+                <div class="form-group">
+                  <label>Nombre Dispositivo</label>
+                  <input type="text" class="form-control" placeholder="Ej: Hogar, Oficina, ...">
+                </div>
+              </div>
+              <div class="col-md-3 px-1">
+                <div class="form-group">
+                  <label>ID Dispositivo </label>
+                  <input type="text" class="form-control" placeholder="Ej: 55555-bafd">
+                </div>
+              </div>
+              <div class="col-md-4 pl-1">
+                <div class="form-group">
+                  <label for="email">Template: </label>
+                  <select class="form-select" id="inputGroupSelect04" 
+                          style="width:75%;height: 35px"
+                          aria-label="Ejemplo de select">
+                          <option selected>Seleccione...</option>
+                          <option valu="1">Uno</option>
+                          <option valu="2">Dos</option>
+                          <option valu="3">Tres</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row pull-right">
+                <div class="col-12">
+                    <button type="button" class="btn btn-dark"
+                            style="background: linear-gradient(to right, #695a69,#000)">
+                            Agregar
+                        </button>
+                </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="row">
+    <div class="col-12">
+    
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-category">Lista de Todos los Dispositivos</h5>
+                <h4 class="card-title"> Estado de Dispositivos </h4>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead class=" text-primary">
+                      <th>
+                        Item
+                      </th>
+                      <th>
+                        Nombre Dispositivo
+                      </th>
+                      <th>
+                        ID Dispositivo
+                      </th>
+                      <th >
+                        Template
+                      </th>
+                      <th >
+                        Acciones
+                      </th>
+                      
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let device of devices; let i=index">
+                        <td>
+                          {{i+1}}
+                        </td>
+                        <td>
+                          {{device.name}}
+                        </td>
+                        <td>
+                          {{device.dId}}
+                        </td>
+                        <td>
+                          {{device.template}}
+                        </td>
+                        <td>
+                            <div class="row" style="justify-content: center;align-content: center;">
+                                <div>
+                                  <button type="button" class="btn btn-outline-danger btn-round btn-icon"
+                                          (click)="deleteDevice(i)"
+                                          style="background: #de1010;">
+                                          <i class="now-ui-icons ui-1_simple-remove"></i>
+                                  </button>                                       
+                                </div>
+                                <div class="form-switch">
+                                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                                      value="device.saverRule" (change)="updateSaverRule(i)"
+                                      [checked]="device.saverRule">&nbsp;&nbsp;
+                                  <!--label class="form-check-label" for="flexSwitchCheckChecked">&nbsp;{{device.name}}</label-->
+                                  <i class="fas fa-database text-success" *ngIf="device.saverRule" for="flexSwitchCheckChecked"></i>
+                                  <i class="fas fa-database" *ngIf="!device.saverRule" for="flexSwitchCheckChecked"></i>
+                                </div>                             
+                            </div>
+
+                            
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        
+    </div>
+  </div>
+</div>
