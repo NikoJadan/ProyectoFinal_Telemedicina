@@ -1,7 +1,7 @@
 import { trigger } from '@angular/animations';
 import { Component } from '@angular/core';
 import { EventBusService } from 'src/app/services/event-bus.service';
-import { IConfigW, MngWidgetsService } from 'src/app/services/mng-widgets.service';
+import { IConfigW, ITemplate, MngWidgetsService } from 'src/app/services/mng-widgets.service';
 
 @Component({
   selector: 'app-templates',
@@ -43,7 +43,7 @@ export class TemplatesComponent {
     selectedDevice:{
       name:"",
       dId:"",
-      template:"",
+      //template:{},
       templateId:"",
       saverRule:false
   
@@ -58,6 +58,24 @@ export class TemplatesComponent {
     message:"",
     text:"",
     demo:true,
+  }
+  templates:ITemplate[]=[];
+  template:ITemplate={
+    userId:"aaa",
+    name:"inicio",
+  }
+
+  saveTemplate(){
+    this.template.widgets=this.widgets;
+    this.templates.push(JSON.parse(JSON.stringify(this.template)));
+  }
+
+  deleteTemplate(i:number){
+    if(i<this.templates.length)
+      this.templates.splice(i,1);
+    else{
+      console.error("'deleteTemplate(i)'seleccion de template erroneo para borrar");
+    }
   }
 
   configIni=this.configRef;

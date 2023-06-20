@@ -18,7 +18,7 @@ export class FnumberchartComponent {
     selectedDevice:{
       name:"",
       dId:"",
-      template:"",
+      //template:"",
       templateId:"",
       saverRule:false
   

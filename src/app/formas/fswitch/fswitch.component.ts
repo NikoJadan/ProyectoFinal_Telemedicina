@@ -18,7 +18,7 @@ export class FswitchComponent {
     selectedDevice:{
       name:"",
       dId:"",
-      template:"",
+      //template:"",
       templateId:"",
       saverRule:false
   

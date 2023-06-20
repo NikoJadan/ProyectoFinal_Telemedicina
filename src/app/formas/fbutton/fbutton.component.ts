@@ -18,7 +18,7 @@ export class FbuttonComponent {
     selectedDevice:{
       name:"",
       dId:"",
-      template:"",
+      //template:"",
       templateId:"",
       saverRule:false
   

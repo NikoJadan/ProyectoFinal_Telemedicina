@@ -17,7 +17,7 @@ export class FindicatorComponent {
     selectedDevice:{
       name:"",
       dId:"",
-      template:"",
+      //template:"",
       templateId:"",
       saverRule:false
   

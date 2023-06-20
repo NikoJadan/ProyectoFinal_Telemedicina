@@ -55,7 +55,7 @@
                 style="padding: 10px;">
                 <div class="row">
                     <div *ngFor="let widget of widgets; let i=index" class="{{widget.columnWidth}}">
-                        <i class="fa fa-trasj text-warning pull-rigth"
+                        <i class="fa fa-trash text-warning pull-rigth"
                             (click)="delWidget(i)"><br></i>
                             <app-numberchart *ngIf="widget.widget=='numberchart'"[config]="widget"></app-numberchart>
                             <app-iotswitch *ngIf="widget.widget=='switch'" [config]="widget"></app-iotswitch>
@@ -64,5 +64,79 @@
                     </div>
                 </div>
 
+        </div>
+
+        <!-- SAVE TEMPLATE -->
+        <div class="row" *ngIf="widgets.length>0">
+            <div class="card text-center col-md-12">
+                <div class="card-header text-center" style="width:100%;">
+                    <h3>Grabar Template</h3>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label> Nombre de Template:</label>
+                            <input type="text" class="form-control" placeholder="Nombre de Template"
+                            [(ngModel)]="template.name">
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-group">
+                            <label> Descripcion:</label>
+                            <input type="text" class="form-control" placeholder="Describa el template"
+                            [(ngModel)]="template.description">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row pull-right" style="padding: 20px;">
+                    <div class="col-12">
+                        <button class="btn btn-outline-success" *ngIf="widgets.length>0"
+                        (click)="saveTemplate()"
+                        >Grabar Template</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLA DE TEMPLATES -->
+        <div class="row">
+            <div class="card text-center col-md-12">
+                <div class="card-header text-center" style="width:100%;">
+                    <h3>Templates</h3>
+                </div>
+                <div class="row">
+                    <table class="table">
+                        <thead class="text-primary">
+                            <th>Item</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Widgets</th>
+                            <th>Operaciones</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let templateF of templates; let i=index">
+                                <td>{{i+1}}</td>
+                                <td>{{templateF.name}}</td>
+                                <td>{{templateF.description}}</td>
+                                <td class="text-center" *ngIf="templateF.widgets !== undefined">{{templateF.widgets.length}}</td>
+                                <td>
+                                    <div class="row" style="justify-content: center;align-content: center;">
+                                        <div class="col" style="vertical-align: middle;">
+                                            <button type="button" rel="tooltip" tittle="Delete" 
+                                            class="btn btn-danger btn-round btn-icon btn-icon-mini"
+                                            data-original-title="Remove" 
+                                            (click)="deleteTemplate(i)" style="vertical-align: middle;"
+                                            style="background: #de1010;">
+                                            <i class="now-ui-icons ui-1 simple-remove" style="color:#fff"></i>
+                                        </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 </div>

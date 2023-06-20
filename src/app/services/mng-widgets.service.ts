@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 
 export interface ITemplate{
-
+  _id?: string,
+  userId: string,
+  name: string,
+  description?: string,
+  createdTime?: Number,
+  widgets?: Array<IConfigW>,
 }
 export interface IDevice{
   name: string,
@@ -52,7 +57,7 @@ export class MngWidgetsService {
   }
 
   addNewWidget(newWidget: IConfigW){
-    this.widgets.push(newWidget);
+    this.widgets.push(JSON.parse(JSON.stringify(newWidget)));
   }
 
   delNewWidget(pos:number){
