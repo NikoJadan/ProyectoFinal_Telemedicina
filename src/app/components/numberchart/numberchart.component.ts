@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Token } from '@angular/compiler';
+import { Component, Input, SimpleChanges } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 import { EventBusService } from 'src/app/services/event-bus.service';
 
 @Component({
@@ -25,11 +27,13 @@ export class NumberchartComponent {
   public lineChartData:Array<any>=[];
   public lineChartOptions:any;
   public lineChartLabels:Array<any>=[];
+  _http: any;
 
   constructor(private _eventBus:EventBusService,
               private http:HttpClient){
     this.isMounted=false;
     this.time=Date.now();
+    
     //this.nowTime=Date.now();
   }
   ngOnInit(): void{
@@ -55,7 +59,14 @@ export class NumberchartComponent {
           pointRadius: 4,
           fill: true,
           borderWidth: 2,
-          data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630],
+          //data: [542, 480, 430, 550, 530, 453, 380, 434, 568, 610, 700, 630],
+          data:[
+            {x:1686094716516, y:20},
+            {x:1686094737516, y:40},
+            {x:1686094738516, y:30},
+            {x:1686094739516, y:55},
+          ],
+          tension:0.4,
           backgroundColor: this.gradientFill,
           borderColor: "#f96332",
           pointBorderColor: "#FFF",
@@ -64,14 +75,18 @@ export class NumberchartComponent {
         }
       ];
       
-      this.lineChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      //this.lineChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      this.lineChartData[0].data.map(item=>{
+        const date=new Date(item.x);
+        const month=date.toLocaleDateString('default',{month:'short'});
+        const day=date.getDate();
+        const hh=date.getHours();
+        const mm=date.getMinutes();
+        const ss=date.getSeconds();
+        this.lineChartLabels.push(`${day}-${month}-${hh}:${mm}:${ss}`);
+      });
       this.lineChartOptions = {
         responsive: 1,
-        elements:{
-        line:{
-          tension:0.4
-        }
-      },
       maintainAspectRatio: false,
       legend: {
         display: false
@@ -84,35 +99,35 @@ export class NumberchartComponent {
         xPadding: 10,
         //yPadding: 10,
         //caretPadding: 10
-      },
-      scales: {
-        yAxes: {
-          display: true,
-          ticks: {
-            display: true,
-            maxTicksLimit: 5,
-            padding: 10
-          },
-          gridLines: {
-            zeroLineColor: "transparent",
-            drawTicks: false,
-            display: false,
-            drawBorder: false
-          }
-        },
-        xAxes: {
-          display: 0,
-          /*ticks: {
-            display: false
-          },
-          gridLines: {
-            zeroLineColor: "transparent",
-            drawTicks: false,
-            display: false,
-            drawBorder: false
-          }//*/
-        }
-      },
+      },//*/
+      // scales: {
+      //   yAxes: [{
+      //     //display: true,
+      //     //ticks: {
+      //       //display: true,
+      //       //maxTicksLimit: 5,
+      //       //padding: 10
+      //     //},
+      //     // gridLines: {
+      //     //   zeroLineColor: "transparent",
+      //     //   drawTicks: false,
+      //     //   display: false,
+      //     //   drawBorder: false
+      //     // }
+      //   }],
+      //   xAxes: {
+      //     display: 0,
+      //     ticks: {
+      //       display: false
+      //     },
+      //     gridLines: {
+      //       zeroLineColor: "transparent",
+      //       drawTicks: false,
+      //       display: false,
+      //       drawBorder: false
+      //     }
+      //   }
+      // },
       layout: {
         padding: {
           left: 0,
@@ -125,6 +140,13 @@ export class NumberchartComponent {
     this.lineChartType = 'line';
   }
   
+  getNow(){
+    this.nowTime=Date.now();
+    setTimeout(()=>{
+      this.getNow()
+    },1000);
+  }
+
   ngAfterViewInit(): void {
     const topic=this.config.userId+"/"+this.config.SelectedDevice.dId+"/"+this.config.variable+"/sdata";
     this._eventBus.on(topic).subscribe(data=>{
@@ -140,12 +162,84 @@ export class NumberchartComponent {
     const topic=this.config.userId+"/"+this.config.SelectedDevice.dId+"/"+this.config.variable+"/sdata";
     this._eventBus.off(topic);
   }
+
+  ngOnChanges(changes: SimpleChanges):void {
+    console.log('ngONCHANGES, changes:', changes["config"]);
+    if(changes["config"]){
+      setTimeout(()=>{
+        this.lineChartData[0].name=`${this.config.variableFullName} ${this.config.unit}`;
+        this.updateColorClass();
+        this.getNow();
+        window.dispatchEvent(new Event('resize'));
+      },1000);
+    }
+  }
+
   //Funcion para recibir los datos del servidor
   processReceivedData(data:any){
     console.log("en processReceivedData->data:",data);
     this.time=Date.now();
     this.value=data.value;
   }
+  actualizarLabels(){
+    this.lineChartLabels=[];
+    this.lineChartData[0].data.map(item=>{
+      const date=new Date(item.x);
+      const month=date.toLocaleDateString('default',{month:'short'});
+      const day=date.getDate();
+      const hh=date.getHours();
+      const mm=date.getMinutes();
+      const ss=date.getSeconds();
+      this.lineChartLabels.push(`${day}-${month}-${hh}:${mm}:${ss}`);
+    });
+  }
+  getChartData(){
+    this.config.demo=true;
+    if(this.config.demo){
+      this.lineChartData[0].data.unshift(
+        {x:1686094716516, y:20},
+            {x:1686094737516, y:40},
+            {x:1686094738516, y:30},
+            {x:1686094739516, y:55},
+            
+      );
+      
+      this.actualizarLabels();
+      this.isMounted=true;
+      console.log('Estamos en button - Recibir datos:', this.lineChartData[0].data);
+      this.value=1;
+      return;
+    }
+    const http_Headers={
+      headers:{
+        "x-Token":"<<token de acceso>>"
+      },
+      params:{
+        dId:this.config.selectedDevice.dId,
+        variable:this.config.variable,
+        chartTimeAgo: this.config.chartTimeAgo
+      }
+    };
+    this._http.get("/get-small-chart-data",http_Headers).pipe(
+      tap(res1=>{
+      const data=res1["data"].data;
+      console.log("data:",data);
+      data.array.forEach(element => {
+        var tiempo: any=element.time+(new Date().getTimezoneOffset()*60*1000*-1);
+        var valor:number=element.value;
+        var aux: any=[];
+        aux.push({x:tiempo,y:valor});
+        this.lineChartData[0].data.push(aux);
+      });
+      this.actualizarLabels();
+      this.isMounted = true;
+      return;
+    }),catchError(error => {
+        console.log(error);
+        return throwError(()=>error);
+    })).suscribe(); 
+  }
+
   updateColorClass(){
     console.log("update:"+this.config.class);
     var c=this.config.class;
@@ -202,4 +296,8 @@ export class NumberchartComponent {
     return this._eventBus.getIconColorClass(!this.value,this.config);
   }
 
+}
+
+function tap(arg0: (res1: any) => void): any {
+  throw new Error('Function not implemented.');
 }

@@ -15,13 +15,17 @@ import { IotbuttonComponent } from './iotbutton/iotbutton.component';
 import { IotswitchComponent } from './iotswitch/iotswitch.component';
 import { NumberchartComponent } from './numberchart/numberchart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { FormsModule } from '@angular/forms';
+import { FormasModule } from '../formas/formas.module';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     NgbModule,
-    NgChartsModule
+    NgChartsModule,
+    FormsModule,
+    FormasModule
   ],
   declarations: [
     FooterComponent,

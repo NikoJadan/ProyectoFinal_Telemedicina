@@ -1,32 +1,68 @@
 <div class="panel-header panel-header-sm">
 </div>
 <div class="main-content">
-    <!-- <div class="row">
-        <div class="col-4">
-            <app-iotindicator [config]="configButton"></app-iotindicator>
-            <button (click)="sendData1()">ENVIAR {{topic1}}</button>
+        <!-- CONFIGURACION WIDGET -->
+        <div class="row">
+            <div class="card text-center col-md-12">
+                <div class="card-header text-center" style="width:100%">
+                    <h1>Widgets</h1>
+                </div>
+                <div class="row">
+                    <!-- SELECTOR DE WIDGETS Y FORMAS -->
+                    <div class="col-6">
+                        <h4>Seleccione Widget </h4>
+                        <select [(ngModel)]="opcionSeleccionada" style="width:75%; height:30px;"
+                                aria-label="Default Select" placeHolder="hola mundo"
+                                (change)="configRef=configIni;habilitarAddWidget=false;">
+                                <option *ngFor="let opcion of opciones" [value]="opcion.id">
+                                    {{opcion.msn}}
+                                </option> 
+                        </select>
+                        <h6><br></h6>
+                        <app-fnumberchart *ngIf="opcionSeleccionada=='numberchart'" (config)="actualizarConfig($event)"></app-fnumberchart>
+                        <app-fswitch *ngIf="opcionSeleccionada=='switch'" (config)="actualizarConfig($event)"></app-fswitch>
+                        <app-fbutton *ngIf="opcionSeleccionada=='button'" (config)="actualizarConfig($event)"></app-fbutton>
+                        <app-findicator *ngIf="opcionSeleccionada=='indicator'" (config)="actualizarConfig($event)"></app-findicator>
+                        <!-- <div *ngFor="let opcion of opciones; let i1=index">
+                            <div *ngIf="opcionSeleccionada == opciones[i1].id">
+                                <h4>La opcion seleccionada es :{{i1+1}} 
+                                    <br>{{opcion.id}}-{{opcion.msn}}
+                                </h4>
+                            </div>
+                        </div> -->
+                    </div>
+                     <!-- VISTA PREVIA DE WIDGET -->
+                    <div class="col-6">
+                        <h4>Vista previa de Widget</h4>
+                        <app-numberchart *ngIf="opcionSeleccionada=='numberchart'"[config]="configRef"></app-numberchart>
+                        <app-iotswitch *ngIf="opcionSeleccionada=='switch'" [config]="configRef"></app-iotswitch>
+                        <app-iotbutton *ngIf="opcionSeleccionada=='button'" [config]="configRef"></app-iotbutton>
+                        <app-iotindicator *ngIf="opcionSeleccionada=='indicator'"[config]="configRef"></app-iotindicator>
+                    </div>
+                </div>
+                <!-- BUTTON PARA ADICIONAR WIDGET -->
+                <div class="row pull-right" style="padding: 20px;">
+                    <button class="btn btn-outline-success"
+                    *ngIf="habilitarAddWidget"
+                    (click)="addNewWidget()"
+                    >ADD Widget</button>         
+                </div>
+            </div>
         </div>
-        <div class="col-4">
-            <app-iotindicator [config]="config2"></app-iotindicator>
-            <button (click)="sendData2()">ENVIAR</button>
+
+        <!-- DASHBOARD PREVIEW -->
+        <div class="card text-center col-md-12" *ngIf="widgets.length>0"
+                style="padding: 10px;">
+                <div class="row">
+                    <div *ngFor="let widget of widgets; let i=index" class="{{widget.columnWidth}}">
+                        <i class="fa fa-trasj text-warning pull-rigth"
+                            (click)="delWidget(i)"><br></i>
+                            <app-numberchart *ngIf="widget.widget=='numberchart'"[config]="widget"></app-numberchart>
+                            <app-iotswitch *ngIf="widget.widget=='switch'" [config]="widget"></app-iotswitch>
+                            <app-iotbutton *ngIf="widget.widget=='button'" [config]="widget"></app-iotbutton>
+                            <app-iotindicator *ngIf="widget.widget=='indicator'"[config]="widget"></app-iotindicator>
+                    </div>
+                </div>
+
         </div>
-        <div class="col-4">
-            <app-iotindicator [config]="config3"></app-iotindicator>
-            <button (click)="sendData3()">ENVIAR</button>
-        </div>
-        <div class="col-4">
-            <app-iotindicator [config]="config4"></app-iotindicator>
-            <button (click)="sendData4()">ENVIAR</button>
-        </div>
-    </div>
-    <div class="row">
-        <app-iotbutton [config]="configButton"></app-iotbutton> 
-    </div> -->
-    <!-- <div class="row">
-        <app-iotswitch [config]="configButton"></app-iotswitch>
-        <app-iotswitch [config]="config1"></app-iotswitch>
-    </div> -->
-    <div class="row">
-        <app-numberchart [config]="configButton"></app-numberchart>
-    </div>
 </div>

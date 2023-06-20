@@ -1,0 +1,40 @@
+<div class="card col-md-12" style="padding: 20px; text-align: left;">
+    <div class="form-group">
+        <label>Nombre de Variable</label>
+        <input type="text" class="form-control" placeholder="Nombre de Variable"
+                [(ngModel)]="iotButtonConfig.variableFullName">
+    </div>
+    <div class="form-group">
+        <label>Mensaje a enviar</label>
+        <input type="text" class="form-control" placeholder="Mensaje a enviar"
+                [(ngModel)]="iotButtonConfig.message">
+    </div>
+    <!-- <div class="form-group">
+        <label>Texto del Button</label>
+        <input type="text" class="form-control" placeholder="Texto del Button"
+                [(ngModel)]="iotButtonConfig.text">
+    </div> -->
+
+    <div class="form-group">
+        <label> Ícono</label>
+        <input type="text" class="form-control" placeholder="icono"
+                [(ngModel)]="iotButtonConfig.icon">
+    </div>
+
+    <label>Selecione la Clase:</label>
+    <select [(ngModel)]="iotButtonConfig.class" style="width:100%;height:30px;"placeHolder="">
+        <option *ngFor="let class of classes" [value]="class">
+            {{class}}
+        </option>
+    </select>
+
+    <label>Selecione el ancho de la columna:</label>
+    <select [(ngModel)]="iotButtonConfig.columnWidth" style="width:100%;height:30px;"placeHolder="">
+        <option *ngFor="let columnWidth of columnsWidth" [value]="columnWidth">
+            {{columnWidth}}
+        </option>
+    </select>
+    <div class="row pull-right" style="padding:10px">
+        <button (click)="sendConfig()">SEND</button>
+    </div>
+</div>

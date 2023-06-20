@@ -1,0 +1,36 @@
+<div class="card col-md-12" style="padding: 20px; text-align: left;">
+    <div class="form-group">
+        <label>Nombre de Variable</label>
+        <input type="text" class="form-control" placeholder="Nombre de Variable"
+                [(ngModel)]="iotConfig.variableFullName">
+    </div>
+  
+
+    <div class="form-group">
+        <label>Texto</label>
+        <input type="text" class="form-control" placeholder="icono"
+        [(ngModel)]="iotConfig.text">
+    </div>
+    <div class="form-group">
+        <label>Icono</label>
+        <input type="text" class="form-control" placeholder="icono"
+        [(ngModel)]="iotConfig.icon">
+    </div>
+   
+    <label>Selecione la Clase:</label>
+    <select [(ngModel)]="iotConfig.class" style="width:100%;height:30px;"placeHolder="">
+        <option *ngFor="let class of classes" [value]="class">
+            {{class}}
+        </option>
+    </select>
+
+    <label>Selecione el ancho de la columna:</label>
+    <select [(ngModel)]="iotConfig.columnWidth" style="width:100%;height:30px;"placeHolder="">
+        <option *ngFor="let columnWidth of columnsWidth" [value]="columnWidth">
+            {{columnWidth}}
+        </option>
+    </select>
+    <div class="row pull-right" style="padding:10px">
+        <button (click)="sendConfig()">SEND</button>
+    </div>
+</div>

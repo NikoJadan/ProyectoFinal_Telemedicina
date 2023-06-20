@@ -15,8 +15,11 @@
                         [legend]="false"
                         [type]="lineChartType"
                         (chartHover)="chartHovered($event)"
-                        (chartClick)="chartClicked($event)"></canvas>
-          </div>    
+                        (chartClick)="chartClicked($event)">
+                    </canvas>
+                
+        </div> 
+        <button (click)="getChartData()">Recibir Datos</button>   
     </div>
 
 
