@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { FormasModule } from '../formas/formas.module';
+import { NgChartsModule } from 'ng2-charts';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   imports: [
@@ -24,7 +26,9 @@ import { FormasModule } from '../formas/formas.module';
     AppRoutingModule,
     NgbModule,
     ToastrModule.forRoot(),
-    FormasModule
+    FormasModule,
+    NgChartsModule,
+    SweetAlert2Module
   ],
   declarations: [
     AppComponent,

@@ -15,31 +15,33 @@ import { IotbuttonComponent } from './iotbutton/iotbutton.component';
 import { IotswitchComponent } from './iotswitch/iotswitch.component';
 import { NumberchartComponent } from './numberchart/numberchart.component';
 import { NgChartsModule } from 'ng2-charts';
+import { FormasModule } from "../../formas/formas.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    RouterModule,
-    NgbModule,
-    NgChartsModule
-  ],
-  declarations: [
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent,
-    DevicesComponent,
-    AlarmasComponent,
-    TemplatesComponent,
-    TestComponent,
-    IotindicatorComponent,
-    IotbuttonComponent,
-    IotswitchComponent,
-    NumberchartComponent
-  ],
-  exports: [
-    FooterComponent,
-    NavbarComponent,
-    SidebarComponent
-  ]
+    declarations: [
+        FooterComponent,
+        NavbarComponent,
+        SidebarComponent,
+        DevicesComponent,
+        AlarmasComponent,
+        TemplatesComponent,
+        TestComponent,
+        IotindicatorComponent,
+        IotbuttonComponent,
+        IotswitchComponent,
+        NumberchartComponent
+    ],
+    exports: [
+        FooterComponent,
+        NavbarComponent,
+        SidebarComponent
+    ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        NgbModule,
+        NgChartsModule,
+        FormasModule
+    ]
 })
 export class ComponentsModule { }

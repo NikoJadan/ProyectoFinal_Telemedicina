@@ -1,0 +1,50 @@
+<div class="container login-page">
+  <div class="col-lg-4 col-md-6 ml-auto mr-auto">
+    <div class="card-login card-white">
+      <div slot="header" class="text-center">
+        <img src=".\assets\img\angular2-logo-red.png" alt="">
+        <h1 class="card-title">IoMT-P62</h1>
+      </div>
+      <div>
+        <div class="form-group">
+          <i class="fa fa-user-circle text-dark" >&nbsp;&nbsp;</i>
+          <label>Nombre</label>
+          <input type="text" class="form-control"
+                       placeholder="Nombre de usuario"
+                       [(ngModel)]="user.nombre">
+        </div>
+        <div class="form-group">
+          <i class="fa fa-envelope text-warning" >&nbsp;&nbsp;</i>
+          <label>Email</label>
+          <input type="email" class="form-control"
+                       placeholder="Email"
+                       [(ngModel)]="user.email">
+        </div>
+        <div class="form-group">
+          <i class="fa fa-lock text-danger" >&nbsp;&nbsp;</i>
+          <label>Password</label>
+          <input type="text" class="form-control"
+                       placeholder="Clave de usuario"
+                       [(ngModel)]="user.password">
+        </div>
+      </div>
+      <div slot="footer">
+        <button type="primary" class="mb-3" (click)="register()" style="width:100%">
+                Crear nuevo usuario
+        </button>
+        <div class="pull-left">
+          <a routerLink="/login">
+            <i class="fas fa-arrow-alt-circle-left"></i>
+            <h6>Login</h6>
+          </a>
+        </div>
+        <div class="pull-right">
+          <a routerLink="dashboard">
+            <i class="fas fa-question-circle"></i>
+            <h6>Necesito ayuda</h6>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

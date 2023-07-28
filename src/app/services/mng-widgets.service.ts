@@ -11,8 +11,9 @@ export interface ITemplate{
 export interface IDevice{
   name: string,
   dId: string,
-  template?: ITemplate,
+  //template?: ITemplate,
   templateId?: string,
+  templateName?:string,
   selected?: boolean,
   saverRule?: boolean,
   alarmRules?: any[]

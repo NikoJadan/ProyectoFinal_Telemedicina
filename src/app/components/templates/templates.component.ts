@@ -1,7 +1,12 @@
-import { trigger } from '@angular/animations';
+
+
 import { Component } from '@angular/core';
 import { EventBusService } from 'src/app/services/event-bus.service';
 import { IConfigW, ITemplate, MngWidgetsService } from 'src/app/services/mng-widgets.service';
+import { PeticioneshttpService } from 'src/app/services/peticioneshttp.service';
+import { UiServiceService } from 'src/app/services/ui-service.service';
+import { trigger } from '@angular/animations';
+
 
 @Component({
   selector: 'app-templates',
@@ -26,7 +31,7 @@ export class TemplatesComponent {
       template:"Sensor Potencia",
       templateId:"asdfghjkl",
       saverRule:false
-  
+
     },
     variableFullName:"Bomba",
     variable:"var1",
@@ -46,7 +51,7 @@ export class TemplatesComponent {
       //template:{},
       templateId:"",
       saverRule:false
-  
+
     },
     variableFullName:"",
     variable:"",
@@ -64,27 +69,52 @@ export class TemplatesComponent {
     userId:"aaa",
     name:"inicio",
   }
-
-  saveTemplate(){
-    this.template.widgets=this.widgets;
-    this.templates.push(JSON.parse(JSON.stringify(this.template)));
-  }
-
-  deleteTemplate(i:number){
-    if(i<this.templates.length)
-      this.templates.splice(i,1);
-    else{
-      console.error("'deleteTemplate(i)'seleccion de template erroneo para borrar");
-    }
-  }
-
-  configIni=this.configRef;
-
-  constructor(private _mngWidget:MngWidgetsService){
+  constructor(private _mngWidget:MngWidgetsService,
+              private _peticionesHttp:PeticioneshttpService,
+              private _uiService:UiServiceService){
     this.widgets=[];
     this.widgets=this._mngWidget.readWidgets();
   }
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this._peticionesHttp.getTemplates().then(result=>{
+      this.templates=result;
+    }).catch(err=>{
+      this.templates=[];
+      console.log('Error en emplates.component ->ngOnInit ->getTemplates:',err);
+    })
+  }
+  saveTemplate(){
+    this.template.widgets=this.widgets;
+    this._peticionesHttp.saveTemplate(this.template)
+                 .then(resp=>{
+                  if(resp){
+                    this.templates.push(JSON.parse(JSON.stringify(this.template)));
+                  }else{
+                    this._uiService.alertaError('No se puede grabar el template');
+                  }
+                 }).catch(err=>{
+                  console.log('Error en templatesComponent->saveTemplate:',err);
+                  this._uiService.alertaError('Error Desconocido en templatesComponent->saveTemplate');
+                 })
+  }
 
+  deleteTemplate(i:number){
+    this._peticionesHttp.deleteTemplate(this.templates[i])
+        .then(resp=>{
+          if(resp){
+            this.templates.splice(i,1);
+          }else{
+            this._uiService.alertaError('No se puede eliminar template')
+          }
+        }).catch(err=>{
+          console.log('Error en templates.component->deleteTemplate, error:',err);
+          this._uiService.alertaError('Error en templates.component->deleteTemplate');
+        });
+  }
+
+  configIni=this.configRef;
   actualizarConfig(event:IConfigW){
     this.configRef=event;
     this.habilitarAddWidget=true;

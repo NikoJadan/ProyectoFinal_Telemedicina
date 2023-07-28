@@ -1,0 +1,1 @@
+{"version":3,"file":"alarmas.component.js","sourceRoot":"","sources":["../../../../../src/app/components/alarmas/alarmas.component.ts"],"names":[],"mappings":";AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,eAAe,CAAC;AAQnC,WAAM,gBAAgB,GAAtB,MAAM,gBAAgB;CAE5B,CAAA;AAFY,gBAAgB;IAN5B,SAAS,CAAC;QACT,QAAQ,EAAE,aAAa;QACvB,WAAW,EAAE,0BAA0B;QACvC,MAAM,EAAE,EACP;KACF,CAAC;GACW,gBAAgB,CAE5B"}

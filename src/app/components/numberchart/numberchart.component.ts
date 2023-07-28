@@ -33,7 +33,7 @@ export class NumberchartComponent {
               private http:HttpClient){
     this.isMounted=false;
     this.time=Date.now();
-    
+
     //this.nowTime=Date.now();
   }
   ngOnInit(): void{
@@ -49,7 +49,7 @@ export class NumberchartComponent {
     this.gradientFill.addColorStop(0, "rgba(128, 182, 244, 0)");
     this.gradientFill.addColorStop(1, "rgba(249, 99, 59, 0.9)");
 
-    
+
     this.lineChartData = [
         {
           label: "Active Users",
@@ -74,7 +74,7 @@ export class NumberchartComponent {
 
         }
       ];
-      
+
       //this.lineChartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
       this.lineChartData[0].data.map(item=>{
         const date=new Date(item.x);
@@ -139,7 +139,7 @@ export class NumberchartComponent {
     };
     this.lineChartType = 'line';
   }
-  
+
   getNow(){
     this.nowTime=Date.now();
     setTimeout(()=>{
@@ -148,7 +148,7 @@ export class NumberchartComponent {
   }
 
   ngAfterViewInit(): void {
-    const topic=this.config.userId+"/"+this.config.SelectedDevice.dId+"/"+this.config.variable+"/sdata";
+    const topic=this.config.userrId+"/"+this.config.SelectedDevice.dId+"/"+this.config.variable+"/sdata";
     this._eventBus.on(topic).subscribe(data=>{
       this.processReceivedData(data);
     });
@@ -201,9 +201,9 @@ export class NumberchartComponent {
             {x:1686094737516, y:40},
             {x:1686094738516, y:30},
             {x:1686094739516, y:55},
-            
+
       );
-      
+
       this.actualizarLabels();
       this.isMounted=true;
       console.log('Estamos en button - Recibir datos:', this.lineChartData[0].data);
@@ -237,7 +237,7 @@ export class NumberchartComponent {
     }),catchError(error => {
         console.log(error);
         return throwError(()=>error);
-    })).suscribe(); 
+    })).suscribe();
   }
 
   updateColorClass(){

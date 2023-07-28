@@ -4,14 +4,28 @@ import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { LoginComponent } from './formas/login/login.component';
+import { RegisterComponent } from './formas/register/register.component';
+import { UsuarioGuard } from './guards/usuario.guard';
 
 const routes: Routes =[
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo:'login', //'dashboard',
     pathMatch: 'full',
-  }, {
+    //canActivate:[UsuarioGuard]
+  },
+  {
+    path:'login',
+    component:LoginComponent
+  },
+  {
+    path:'register',
+    component:RegisterComponent
+  },
+   {
     path: '',
+    canActivate:[UsuarioGuard],
     component: AdminLayoutComponent,
     children: [
         {
@@ -20,7 +34,8 @@ const routes: Routes =[
   }]},
   {
     path: '**',
-    redirectTo: 'dashboard'
+    //redirectTo: 'dashboard'
+    redirectTo: 'login'
   }
 ];
 

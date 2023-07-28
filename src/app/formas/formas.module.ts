@@ -6,6 +6,9 @@ import { FmapComponent } from './fmap/fmap.component';
 import { FswitchComponent } from './fswitch/fswitch.component';
 import { FbuttonComponent } from './fbutton/fbutton.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -15,18 +18,23 @@ import { FormsModule } from '@angular/forms';
     FindicatorComponent,
     FmapComponent,
     FswitchComponent,
-    FbuttonComponent
+    FbuttonComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     FormsModule,
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports:[
     FnumberchartComponent,
     FindicatorComponent,
     FmapComponent,
     FswitchComponent,
-    FbuttonComponent
+    FbuttonComponent,
+    LoginComponent,
+    RegisterComponent
   ]
 })
 export class FormasModule { }

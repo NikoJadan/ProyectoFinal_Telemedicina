@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
+import { IDevice } from 'src/app/services/mng-widgets.service';
+import { PeticioneshttpService } from 'src/app/services/peticioneshttp.service';
 
 @Component({
   selector: 'app-devices',
   templateUrl: './devices.component.html',
-  styleUrls: ['./devices.component.html']
+  styleUrls: [
+  ]
 })
+
 export class DevicesComponent {
-  devices:any=[
+  devices:IDevice[]=[
     {
     name:"Hogar",
     dId:"8881",
-    template:"Sensor Potencia",
+    //template/:"ayuda",
     templateId:"sjkhlskahfladshflf",
     saverRule:false
   },
@@ -18,7 +22,6 @@ export class DevicesComponent {
   {
     name:"Empresa",
     dId:"8882",
-    template:"Sensor Temperatura",
     templateId:"ssjkhlskahfladshfl",
     saverRule:true
   },
@@ -26,14 +29,20 @@ export class DevicesComponent {
   {
     name:"Oficina",
     dId:"8883",
-    template:"Sensor Iluminacion",
     templateId:"sjkhlskahfladshflf3",
     saverRule:false
   },
 ]
 
+constructor(private _peticionesHttp:PeticioneshttpService){}
+
+ngOnInit(){
+  this._peticionesHttp.getDevices();
+  console.log('devicesComponent->ngOnInit, despues de getDevices()');
+}
+
 deleteDevice(pos:number){
-  console.log('Se va a borrar el Dispositivo: ${this.devices[pos].name}')
+  console.log(`Se va a borrar el Dispositivo: ${this.devices[pos].name}`)
 }
 
 updateSaverRule(id:number){
