@@ -7,6 +7,7 @@ export let PeticioneshttpService = class PeticioneshttpService {
     constructor(http, _uiService) {
         this.http = http;
         this._uiService = _uiService;
+        this.templates = [];
     }
     cargarToken() {
         if (!this.token) {
@@ -87,10 +88,129 @@ export let PeticioneshttpService = class PeticioneshttpService {
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     getDevices() {
         const headers = new HttpHeaders({ 'x-token': this.token });
-        this.http.get(`${URL}/api/device`, { headers: headers })
-            .subscribe(resp => {
-            console.log('peticionesHttp.service->getDevices->resp:', resp);
+        return new Promise(resolve => {
+            this.http.get(`${URL}/api/device`, { headers: headers })
+                .subscribe(resp => {
+                console.log('peticionesHttp.service->getDevices->resp:', resp);
+                let devices = [];
+                if (resp['deviceDB'])
+                    devices = resp['deviceDB'];
+                this.devices = devices;
+                resolve(devices);
+            });
         });
+    }
+    addDevice(device) {
+        const headers = new HttpHeaders({ 'x-token': this.token });
+        try {
+            return new Promise(resolve => {
+                const data = {
+                    dId: device.dId,
+                    name: device.name,
+                    templateId: device.templateId,
+                    templateName: device.templateName
+                };
+                this.http.post(`${URL}/api/device`, data, { headers: headers })
+                    .subscribe(resp => {
+                    console.log('PeticionesHttp->addDevice->resp:', resp);
+                    if (resp['ok']) {
+                        this.devices.push(data);
+                        return resolve(true);
+                    }
+                    else {
+                        if (resp['mensaje'] !== undefined) {
+                            this._uiService.alertaError('Error en addDevice: ' + resp['mensaje'] + '-dId:' + device.dId);
+                            return resolve(false);
+                        }
+                        else {
+                            this._uiService.alertaError('Error en addDevice: dId:' + device.dId);
+                            return resolve(false);
+                        }
+                    }
+                });
+            });
+        }
+        catch (error) {
+            console.log('Error en peticioneshtpp->addDevice->error:', error);
+            this._uiService.alertaError('Error en addDevice: dId:' + device.dId);
+            return Promise.resolve(false);
+        }
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    // MANEJO DE TEMPLATES
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    async readTemplates() {
+        if (this.templates.length == 0) {
+            await this.getTemplates();
+        }
+        return this.templates;
+    }
+    saveTemplate(template) {
+        const header = new HttpHeaders({ 'x-token': this.token });
+        //console.log('petionesHttp_service->saveTemplate->template:',template);
+        try {
+            return new Promise(resolve => {
+                this.http.post(`${URL}/widgets/template`, { template }, { headers: header })
+                    .subscribe(resp => {
+                    if (resp['ok']) {
+                        return resolve(true);
+                    }
+                    else {
+                        return resolve(false);
+                    }
+                });
+            });
+        }
+        catch (error) {
+            console.log('Error en peticiones Http_service en saveTemplate(...)', error);
+            this._uiService.alertaError('Error en peticionesHttp->saveTemplate()');
+            return Promise.resolve(false);
+        }
+    }
+    getTemplates() {
+        const header = new HttpHeaders({ 'x-token': this.token });
+        //console.log('petionesHttp_service->saveTemplate->template:',template);
+        try {
+            return new Promise(resolve => {
+                this.http.get(`${URL}/widgets/template`, { headers: header })
+                    .subscribe(resp => {
+                    let templates1 = [];
+                    if (resp['templateBD']) {
+                        templates1 = resp['templateBD'];
+                    }
+                    this.templates = templates1;
+                    resolve(this.templates);
+                });
+            });
+        }
+        catch (error) {
+            console.log('Error en peticiones Http_service en saveTemplate(...)', error);
+            this._uiService.alertaError('Error en peticionesHttp->saveTemplate()');
+            return Promise.resolve([]);
+        }
+    }
+    deleteTemplate(template) {
+        const header = new HttpHeaders({ 'x-token': this.token });
+        //console.log('petionesHttp_service->saveTemplate->template:',template);
+        try {
+            return new Promise(resolve => {
+                this.http.delete(`${URL}/widgets/template`, { headers: header, body: { idTemplate: template._id } })
+                    .subscribe(resp => {
+                    if (resp['ok']) {
+                        console.log('en PeticionesHttp->deleteTemplate,resp:', resp);
+                        return resolve(true);
+                    }
+                    else {
+                        return resolve(false);
+                    }
+                });
+            });
+        }
+        catch (error) {
+            console.log('Error en peticiones Http_service en deleteTemplate(...)', error);
+            this._uiService.alertaError('Error en peticionesHttp->deleteTemplate()');
+            return Promise.resolve(false);
+        }
     }
 };
 PeticioneshttpService = __decorate([

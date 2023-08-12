@@ -119,7 +119,7 @@ export let NumberchartComponent = class NumberchartComponent {
         }, 1000);
     }
     ngAfterViewInit() {
-        const topic = this.config.userId + "/" + this.config.SelectedDevice.dId + "/" + this.config.variable + "/sdata";
+        const topic = this.config.userrId + "/" + this.config.SelectedDevice.dId + "/" + this.config.variable + "/sdata";
         this._eventBus.on(topic).subscribe(data => {
             this.processReceivedData(data);
         });
